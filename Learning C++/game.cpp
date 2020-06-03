@@ -7,14 +7,16 @@ const int MAX_NUM= 100;
 const float MAX_TURN= 0.5;
 
 //function prototype - needed if you put functions under main - only specify data type of variable
-//string printWinner(string);
+string PlayerName(string names[], bool playerTurn);
+
+
 
 int main()
 {
 	bool player1Turn= true;
 	bool gameOver= false;
-	int count1;
-	int count2;
+	int count1= 0;
+	int count2= 0;
 	int chipsInPile= 0;
 	int chipsTaken= 0;
 	int maxTake= 0;
@@ -43,14 +45,7 @@ int main()
 			do
 			{
 				maxTake= chipsInPile * MAX_TURN;
-				if(player1Turn)
-				{
-					cout << "\nIt is " << playerName[0] << "'s Turn, how many chips would you like?\n";
-				}
-				else
-				{
-					cout << "\nIt is " << playerName[1] << "'s Turn, how many chips would you like?\n";
-				}
+				cout << "\nIt is " << PlayerName(playerName, player1Turn) << "'s Turn, how many chips would you like?\n";
 		
 				cout << "You can only take up to ";
 				if (maxTake == 0)
@@ -62,13 +57,14 @@ int main()
 					cout << maxTake << endl;
 				}
 				cin >> chipsTaken;
-				if(player1Turn && chipsTaken < maxTake)
+				
+				if(player1Turn && chipsTaken <= maxTake)
 				{
-					count1++;
+					count1+= chipsTaken;
 				}
-				else if (!player1Turn && chipsTaken < maxTake)
+				else if (!player1Turn && chipsTaken <= maxTake)
 				{
-					count2++;
+					count2+= chipsTaken;
 				}
 				cout << "Number of chips taken: " << chipsTaken << endl;
 				
@@ -85,10 +81,12 @@ int main()
 				if (count1 > count2)
 				{
 					cout << "\nCongratulations " << playerName[0] << " you won!\n";
+					cout << count1 << "vs" << count2;
 				}
 				else
 				{
 					cout << "\nCongratulations " << playerName[1] << " you won!\n";
+					cout << count1 << "vs" << count2;
 				}
 			}
 			//Switching turns
@@ -97,7 +95,7 @@ int main()
 				player1Turn = !player1Turn;
 			}
 		}
-		cout << "Press 1 to play again, otherwise press 0.\n";
+		cout << "\nPress 1 to play again, otherwise press 0.\n";
 		cin >> choice;
 
 	} while (choice == 1);
@@ -106,7 +104,23 @@ int main()
 	return 0;
 }
 
-//string printWinner(string& data)
-//{
-	//return toupper(data);
-//}
+string PlayerName(string names[], bool playerTurn)
+{
+	if(playerTurn == true)
+	{
+		return names[0];
+	}
+	else
+		return names[1];
+}
+
+
+int askMove(bool player1Turn, int chipsInPile, string names[])
+{
+	
+}
+
+void getUserNames(string players[])
+{
+	
+}
